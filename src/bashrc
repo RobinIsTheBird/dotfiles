@@ -1,0 +1,270 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+# ANSI color codes
+RS="\[\033[0m\]"    # reset
+HC="\[\033[1m\]"    # hicolor
+UL="\[\033[4m\]"    # underline
+INV="\[\033[7m\]"   # inverse background and foreground
+FBLK="\[\033[30m\]" # foreground black
+FRED="\[\033[31m\]" # foreground red
+FGRN="\[\033[32m\]" # foreground green
+FYEL="\[\033[33m\]" # foreground yellow
+FBLE="\[\033[34m\]" # foreground blue
+FMAG="\[\033[35m\]" # foreground magenta
+FCYN="\[\033[36m\]" # foreground cyan
+FWHT="\[\033[37m\]" # foreground white
+BBLK="\[\033[40m\]" # background black
+BRED="\[\033[41m\]" # background red
+BGRN="\[\033[42m\]" # background green
+BYEL="\[\033[43m\]" # background yellow
+BBLE="\[\033[44m\]" # background blue
+BMAG="\[\033[45m\]" # background magenta
+BCYN="\[\033[46m\]" # background cyan
+BWHT="\[\033[47m\]" # background white
+FHRD="\[\033[01;31m\]" # foreground hicolor red
+FHGR="\[\033[01;32m\]" # foreground hicolor green
+FHYE="\[\033[01;33m\]" # foreground hicolor yellow
+FHBL="\[\033[01;34m\]" # foreground hicolor blue
+FHMA="\[\033[01;35m\]" # foreground hicolor magenta
+FHCY="\[\033[01;36m\]" # foreground hicolor cyan
+
+# Look up key codes using infocmp (from ncurses)
+# Check keycodes for the terminal with the bash "read" command
+
+if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1="${debian_chroot:+($debian_chroot)}$FHGR\u$RS:$FHCY\w$FHYE\$ $RS"
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias lf='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+echo 'Executing .bashrc'
+
+# Rebind stop-terminal from the default ^S to ^X to enable bash history ^S
+# for incremental forward search.
+# start-terminal is still ^Q.
+stty stop ^X
+
+export EMAIL=robin.schaufler@oracle.com
+export REPLYTO=robin.schaufler@oracle.com
+export EDITOR=/usr/bin/vim
+
+# For urllib2
+export https_proxy="http://www-proxy.us.oracle.com:80"
+export http_proxy="http://www-proxy.us.oracle.com:80"
+
+
+export UP_HOME=~robinschaufler/Dev/up
+
+# for groovy
+# export CLASSPATH=$UP_HOME/projects/war/war/WEB-INF/lib:$UP_HOME/projects/war/war/jnlp
+# export GROOVY_CLASSPATH=$UP_HOME/projects/common/classes:$UP_HOME/projects/services/classes
+
+#export JAVA_HOME=/Apps/jdk1.6.0_32
+export JAVA_HOME=/Apps/jdk1.7.0_17
+export ORACLE_HOME=/Apps/Oracle
+export MIDDLEWARE_HOME=/Apps/Oracle/Middleware
+export INSTANTCLIENT_HOME=/Apps/instantclient/instantclient_12_1
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export ANT_HOME=/Apps/apache-ant-1.8.2
+#export ANT_OPTS="-Xmx512m -Xss1m"
+export ANT_OPTS="-XX:PermSize=1024m -XX:MaxPermSize=2048m"
+export SQLDEVELOPER_HOME=/Apps/sqldeveloper/sqldeveloper
+export WEBSTORM_HOME=/Apps/WebStorm-135.547
+export WLS_DOMAIN_NAME=primavera
+export USER_HOME=/home/robinschaufler
+export PATH=/Apps/instantclient/instantclient_12_1:$MIDDLEWARE_HOME/user_projects/domains/$WLS_DOMAIN_NAME:$WEBSTORM_HOME/bin:$JAVA_HOME/bin:$ANT_HOME/bin:$USER_HOME/bin:$PATH
+# necessary for sqldeveloper to run
+export HISTSIZE=10000
+export HISTCONTROL=ignoredups
+# for remoting Java application from Xming on windows
+export AWT_TOOLKIT=MToolkit
+unset GNOME_DESKTOP_SESSION_ID
+
+export REPO_HOME=$USER_HOME/Dev/pgbu_platform-2.0
+export HG_HOME=$USER_HOME/Dev/pgbu_platform-2.0
+
+alias sudo='sudo -E'
+alias node="env NODE_NO_READLINE=1 rlwrap node"
+# [[ -s $HOME/.nvm/nvm.sh ]] &&. $HOME/.nvm/nvm.sh # This loads nvm
+
+# can add -Dskip-ui and -Dskip-db
+# Only add the latter if [ -f $REPO_HOME/snapshots/dbboot.jar ];
+function antu () { \
+  ant -Dnowebsocket=true -Dnorepack=1 -Dnosign=1 -Dskip-sign=1 $@ ; \
+}
+# see https://confluence.oraclecorp.com/confluence/display/~matthew.marron@oracle.com/Skipping+DBBoot
+function cleanear () { \
+  antu clean exploded_ear && (cd ../weave_dbboot ; ant clean weave -Drepo.dir=$REPO_HOME) ; \
+}
+function + () { \
+  pushd $@ ; \
+}
+function - () { \
+  popd $@ ; \
+}
+function findRoutes () { \
+  for f in "$@" ; do \
+    echo "$f:" ;
+    sed -n '/routes\s*:/,/^\s*}/p' "$f" ; \
+  done
+}
+function apt-list () { \
+  dpkg --get-selections | grep -v deinstall ; \
+}
+function sshg () { \
+  hg --config 'extensions.mercurial_keyring=!' $@ ; \
+}
+function startservices () { \
+  sudo su ; \
+  service lighttpd start ; \
+  exit ; \
+}
+function explode () { \
+  ant clean exploded_ear && notify-send "Build Passed" || alert ; \
+}
+function opendj () { \
+  sudo /Apps/OpenDJ-2.6.0/bin/start-ds --timeout 0 ; \
+}
+function grepjs () { \
+  grep --include='*.js' -r "$@" * ; \
+}
+function grephist () { \
+  for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do \
+    git cat-file -p $f | grep "$2" ; \
+  done
+}
+export NO_DBBOOT="-DskipDBBoot=1"
+function debugWebLogic () { \
+  WL_OPTIONS= ; \
+  WL_ARGS=() ; \
+  for a in "$@" ; do \
+    if [[ $a == "skipdb" ]] ; then \
+      WL_OPTIONS="-DskipDBBoot=1" ; \
+    else \
+      WL_ARGS+=($a) ; \
+    fi \
+  done ; \
+  JAVA_DEBUG_OPTIONS='-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044 -Xnoagent -Djava.compiler=NONE' ; \
+  JAVA_SIZE_OPTIONS='-Xms768m -Xmx1024m -XX:PermSize=768m -XX:MaxPermSize=768m' ; \
+  JAVA_LOG_OPTIONS='-Dlog4j.configurationFile=file:/home/robinschaufler/Dev/log4j2.xml' ; \
+  export JAVA_OPTIONS="${JAVA_DEBUG_OPTIONS} ${JAVA_SIZE_OPTIONS} ${JAVA_LOG_OPTIONS} ${WL_OPTIONS}" ; \
+  $MIDDLEWARE_HOME/Oracle_Home/user_projects/domains/primavera/startWebLogic.sh "${WL_ARGS[@]}" ; \
+}
+
+# inxi -Sr # Not installed
+
+lsb_release -a
+uname -a
+
+# See http://manpages.ubuntu.com/manpages/hardy/man1/x11vnc.1.html
+function startx11vnc () { \
+  x11vnc -display :0 -autoport 5900 -forever -usepw -bg -o /home/robinschaufler/x11vnclog.txt -rfbauth /home/robinschaufler/.vnc/passwd ; \
+}

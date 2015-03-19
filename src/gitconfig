@@ -1,0 +1,61 @@
+[user]
+	name = Robin Schaufler
+	email = robin.schaufler@oracle.com
+[interactive]
+	singlekey = true
+[credential]
+	helper = cache --timeout 7200
+[diff]
+	#More from: http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+	algorithm = patience
+[core]
+	editor = vim
+	autocrlf = input
+[push]
+	default = simple
+[color]
+	status = auto
+	branch = auto
+[http]
+	proxy = 141.146.46.103:80
+[merge]
+	tool = kdiff3
+	conflictstyle = diff3
+[alias]
+	ff = merge --ff-only
+	noff = merge --no-ff
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	sub = submodule
+	terselog = log --pretty=format:\"%h %ad | %d %s [%an]\" --date=short
+	filelog = log --pretty=format:\"%h %ad | %d %s [%an]\" --date=short --stat
+	msglog = log --pretty=format:\"%w(100)%C(yellow)%h%Creset %ad %C(cyan)[%an]%Creset %d:%n%Cgreen%s%Creset%n%n%b\" --date=short
+	hist = log --pretty=format:\"%h %ad | %d %s [%an]\" --graph --date=short
+	hists = log --pretty=format:\"%h %ad | %d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	less = show --oneline
+	blog = show -- show --pretty=full -s
+	tclean = clean -f -x -d --exclude 'node_modules'
+	mt = mergetool
+	serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+
+	#http://git-scm.com/book/en/Git-Tools-Stashing
+	stash-unapply = git stash show -p \"$@\" | git apply -R
+
+	#From: http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+	# Workflow:
+	# $ git status --> modified tracked-file.js
+	# $ git assume tracked-file.js
+	# $ git status --> omits the assumed file
+	# $ git assumed --> tracked-file.js
+	assume   = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+	# Merge, take mine or theirs wholesale
+	mine   = "!f() { git checkout --ours $@ && git add \"$@\"; }; f"
+	theirs = "!f() { git checkout --theirs $@ && git add \"$@\"; }; f"
+[url "https://"]
+	insteadOf = git://
