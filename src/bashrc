@@ -258,6 +258,41 @@ function debugWebLogic () { \
   export JAVA_OPTIONS="${JAVA_DEBUG_OPTIONS} ${JAVA_SIZE_OPTIONS} ${JAVA_LOG_OPTIONS} ${WL_OPTIONS}" ; \
   $MIDDLEWARE_HOME/Oracle_Home/user_projects/domains/primavera/startWebLogic.sh "${WL_ARGS[@]}" ; \
 }
+function ants () { \
+  echo $REPO_HOME ; \
+  skipopts=() ; \
+  antopts=() ; \
+  options=() ; \
+  while [[ $1 ]] ; do \
+    case "$1" in \
+      -skip) \
+        if [[ "$2" == "db" ]] ; then \
+          if [[ -f $REPO_HOME/snapshots/dbboot.jar ]] ; then \
+            skipopts+=("$2") ; \
+          fi \
+        else \
+          skipopts+=("$2") ; \
+        fi ; \
+        shift 2 \
+        ;; \
+      *) \
+        options+=("$1") ; \
+        shift \
+        ;; \
+    esac \
+  done ; \
+
+  echo skip "${skipopts[@]}" ; \
+
+  for sk in "${skipopts[@]}" ; do \
+    antopts+=(-Dskip-"${sk}"=true) ; \
+  done ; \
+
+  echo opt "${options[@]}" ; \
+
+  ant -Dnowebsocket=true -Dnorepack=1 -Dnosign=1 -Dskip-sign=1 "${antopts[@]}" "${options[@]}" && notify-send "Build Completed" ; \
+
+}
 
 # inxi -Sr # Not installed
 
