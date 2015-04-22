@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oraclesmallexercises;
+package genericswapper;
 
 /**
  *
  * @author robinschaufler
  */
-public class OracleSmallExercises {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class ArrayElementSwapper {
+    ArrayElementSwapper() {
+        
     }
-    
+    public static <T> void swap(T[] ts, int i, int j) {
+        T x = ts[i];
+        ts[i] = ts[j];
+        ts[j] = x;
+    }
 }
