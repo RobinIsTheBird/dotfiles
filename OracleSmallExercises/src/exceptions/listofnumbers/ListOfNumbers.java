@@ -32,16 +32,18 @@ package exceptions.listofnumbers;
 
 import java.io.*;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ListOfNumbers {
     private final List<Integer> list;
     private static final int SIZE = 10;
 
     public ListOfNumbers () {
-        list = new ArrayList<>(SIZE);
-        for (int i = 0; i < SIZE; i++)
-            list.add(i);
+        list = Arrays.asList(new Integer[SIZE]);
+        for (int i = 0; i < SIZE; i++) {
+            
+            list.set(i, i);
+        }
     }
     public void writeList() {
         PrintWriter out = null;
@@ -70,12 +72,14 @@ public class ListOfNumbers {
         
         try(RandomAccessFile inFile = new RandomAccessFile(fileName, "r")) {
             String nextLine = inFile.readLine();
+            int listIndex = 0;
             while (null != nextLine) {
                 
                 try {
                     int nextInt = Integer.parseInt(nextLine);
                     System.out.println("Read: " + nextLine);
-                    list.add(nextInt);
+                    list.set(listIndex, nextInt);
+                    listIndex++;
                 } catch (NumberFormatException e) {
                     System.err.println(nextLine + " is not an integer.");
                 }
@@ -84,9 +88,11 @@ public class ListOfNumbers {
             }
             
         } catch (FileNotFoundException e) {
-            System.out.println(fileName + " not found.");
+            System.err.println(fileName + " not found.");
         } catch (IOException e) {
-            System.out.println("Error trying to close " + fileName);
+            System.err.println("Error trying to close " + fileName);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e.toString());
         }
     }
 }
