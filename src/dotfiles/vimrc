@@ -1,0 +1,53 @@
+" This .vimrc file is not standalone.
+" It expects:
+" .vim/syntax
+" $VIMRUNTIME/syntax/psp.vim
+" Furthermore, $VIMRUNTIME/syntax/{c,python,html}.vim have been modified
+" to include
+" set tabstop=<2 or 4>
+" set shiftwidth=<2 or 4>
+" set expandtab
+" I wanted ctrl-F2 to split at cursor, but the following
+" conflicts with F2, and positioning within the splits is poor.
+" map <xF2> :exe winline() "split" <CR>
+"
+" Potentially useful: cscope
+" set cscopetag, cscopeverbose, and cscopeprg=/usr/bin/cscope
+"
+" Interesting discoveries:
+" Word wrap :1,$g/.\{78,\}/s/\(.\{68,78\}\) /\1^M/g   # (^M is ctrl-V ctrl-M)
+" Highlight word under cursor /\w*\%#\w*
+"
+syntax enable
+" let &ignorecase=1
+let &smartcase=1
+" set path=~/Dev/pgbu_platform-2.0/projects/**
+set wildignore+=**/javascripts-min/**,**/dist_pages/**,**/admin_dist_pages/**
+set path=$PWD/**
+set suffixesadd+=.js,.java
+set noequalalways
+set noautoindent
+set dictionary+=~/pykeys.dict
+set dictionary+=~/rbt.dict
+set formatoptions+=l
+set hlsearch
+set viminfo+='500 viminfo-='20 viminfo+=f1
+au BufRead,BufNewFile *.psp	setf psp
+" from restore-cursor
+augroup restoreCursor
+  au!
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
+augroup END
+nmap <F8> :setlocal syntax=javascript <CR>
+nmap <F7> :setlocal syntax=html <CR>
+nmap <F2> :set tabstop=2 shiftwidth=2 expandtab <CR>
+nmap <F4> :set tabstop=4 shiftwidth=4 expandtab <CR>
+
+hi MatchParen None
+hi MatchParen term=underline,bold cterm=underline,bold gui=underline,bold
+
+" From https://askubuntu.com/questions/455490/ctrlspace-mapping-broken-in-vim-after-upgrade-to-14-04
+" inoremap <C-Space> <Esc>

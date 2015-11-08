@@ -1,0 +1,2 @@
+registry = http://registry.npmjs.org/
+proxy = http://adc-proxy.oracle.com:80/
