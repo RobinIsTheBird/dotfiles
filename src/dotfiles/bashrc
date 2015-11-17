@@ -2,14 +2,14 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-type -fp lsb_release >/dev/null 2>&1 && export IS_LINUX=YES || IS_LINUX=
-[[ -z $IS_LINUX ]] && echo 'lsb_release is not installed'
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+type -fp lsb_release >/dev/null 2>&1 && export IS_LINUX=YES || IS_LINUX=
+[[ -z $IS_LINUX ]] && echo 'lsb_release is not installed'
 
 
 # append to the history file, don't overwrite it

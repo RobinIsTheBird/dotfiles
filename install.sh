@@ -15,12 +15,7 @@ for f in src/dotfiles/* ; do \
     cp $f ${destf} ; \
 done
 
-for f in src/nodot/* ; do \
-  fname=${f#src/dotfiles/} ; \
-  destf=$1${fname} ; \
-  if [[ -d ${destf} ]] ; then \
-    rm -r ${destf} ; \
-    cp -r $f ${destf} ; \
-  else \
-    cp $f ${destf} ; \
-done
+mkdir $1/bashrcLib >/dev/null 2>&1
+unamestr=$(uname)
+cp src/nodot/bashrcLib/env/${unamestr,,}.bash $1/bashrcLib/env.bash
+chmod a+x $1/bashrcLib/env.bash
