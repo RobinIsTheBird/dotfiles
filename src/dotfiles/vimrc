@@ -17,26 +17,80 @@
 " Interesting discoveries:
 " Word wrap :1,$g/.\{78,\}/s/\(.\{68,78\}\) /\1^M/g   # (^M is ctrl-V ctrl-M)
 " Highlight word under cursor /\w*\%#\w*
-"
-syntax enable
 " let &ignorecase=1
+
 let &smartcase=1
-" set path=~/Dev/pgbu_platform-2.0/projects/**
-set wildignore+=**/javascripts-min/**,**/dist_pages/**,**/admin_dist_pages/**
+set wildignore+=**/*.pyc,*.pyc
 set path=$PWD/**
-set suffixesadd+=.js,.java
+set suffixesadd+=.js,.java,.coffee,.py
 set noequalalways
 set noautoindent
+
+" vundle vim package manager from
+" https://github.com/VundleVim/Vundle.vim
+" Must come before pathogen, since vundle plugins
+" require filetype off, and pathogen turns it back on.
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#rc()
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" https://github.com/tpope/vim-fugitive
+Plugin 'tpope/vim-fugitive'
+
+" https://github.com/kchmck/vim-coffee-script
+Plugin 'kchmck/vim-coffee-script'
+
+" https://github.com/JulesWang/css.vim
+Plugin 'JulesWang/css.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+" required by both vundle and pathogen
+syntax enable
+filetype plugin on
+
+" To ignore plugin indent changes, instead use:
+" "filetype plugin on
+" "
+" " Brief help
+" " :PluginList       - lists configured plugins
+" " :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" " :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+" "
+" " see :h vundle for more details or wiki for FAQ
+" " Put your non-Plugin stuff after this line
+
+"
+" pathogen vim package manager:
+execute pathogen#infect('bundle/{}', '~/Github/vim/bundle/{}')
+
 set dictionary+=~/pykeys.dict
 set dictionary+=~/rbt.dict
-set formatoptions+=l
+set formatoptions-=l
+set formatoptions+=t
 set hlsearch
 set viminfo+='500 viminfo-='20 viminfo+=f1
+set wrap
+set textwidth=80
+set wrapmargin=0
 au BufRead,BufNewFile *.psp	setf psp
 " from restore-cursor
 augroup restoreCursor
   au!
-  autocmd BufReadPost *
+  au BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal g`\"" |
         \ endif
@@ -48,6 +102,25 @@ nmap <F4> :set tabstop=4 shiftwidth=4 expandtab <CR>
 
 hi MatchParen None
 hi MatchParen term=underline,bold cterm=underline,bold gui=underline,bold
+" Temporary until I get my colorscheme ironed out
+hi Search term=reverse ctermbg=11 ctermfg=darkblue guibg=Yellow
+hi TrailingWhiteSpace ctermbg=red guibg=red
+match TrailingWhiteSpace /\s\+$/
+" Remove trailing whitespace
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+au BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+au QuickFixCmdPost * nested cwindow | redraw!
+let coffee_compiler='./node_modules/.bin/cjsx'
+let coffee_linter='/home/rschaufler/.nvm/v0.10.40/lib/node_modules/coffeelint-cjsx/bin/coffeelint'
+
+" From the dreaded vim.wikia.com/wiki which has ads that kill the browser
+command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 " From https://askubuntu.com/questions/455490/ctrlspace-mapping-broken-in-vim-after-upgrade-to-14-04
 " inoremap <C-Space> <Esc>

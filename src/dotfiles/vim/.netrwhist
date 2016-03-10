@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/robinschaufler/Dev/pgbu_platform-2.0/projects/pages/assets/javascripts/packages/costing/cbs'
-let g:netrw_dirhist_2='/home/robinschaufler/Dev/Jira'
-let g:netrw_dirhist_3='/home/robinschaufler/Dev/pgbu_platform-2.0/projects/pages/assets/javascripts/unshared/portfolios/capitalPlanInventoryBPC'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/rschaufler/Dev/src/trafficking'
+let g:netrw_dirhist_2='/home/rschaufler/Dev/src/trafficking/api'
+let g:netrw_dirhist_3='/home/rschaufler/Dev/src/trafficking/api/alembic'
+let g:netrw_dirhist_4='/home/rschaufler/Dev/src/trafficking/api/alembic/versions'
