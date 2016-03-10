@@ -60,5 +60,8 @@
 	# Merge, take mine or theirs wholesale
 	mine   = "!f() { git checkout --ours $@ && git add \"$@\"; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add \"$@\"; }; f"
+
+  # Push to gerrit, from https://docs.google.com/document/d/1G-eR7XipdwRVgLgu334kVVnlMG8xyjA7k0gxAh3wS1w/edit#
+  gerrit = push origin HEAD:refs/for/develop
 [url "https://"]
 	insteadOf = git://
