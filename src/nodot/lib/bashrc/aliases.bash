@@ -1,22 +1,3 @@
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-function lf () { ls -CF $*; }
-function la () { ls -A $*; }
-function ll () { ls -alF $*; }
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 alias sudo='sudo -E'
 alias node="env NODE_NO_READLINE=1 rlwrap node"
 
@@ -32,20 +13,6 @@ function findRoutes () { \
     sed -n '/routes\s*:/,/^\s*}/p' "$f" ; \
   done
 }
-function apt-list () { \
-  dpkg --get-selections | grep -v deinstall ; \
-}
-function sshg () { \
-  hg --config 'extensions.mercurial_keyring=!' $@ ; \
-}
-function startservices () { \
-  sudo su ; \
-  service lighttpd start ; \
-  exit ; \
-}
-function explode () { \
-  ant clean exploded_ear && notify-send "Build Passed" || alert ; \
-}
 function grepjs () { \
   grep --include='*.js' -r "$@" * ; \
 }
@@ -56,12 +23,6 @@ function grephist () { \
 }
 function git-merge-base () { \
   git merge-base --all --octopus $@ | xargs git terselog -1 ; \
-}
-# See http://manpages.ubuntu.com/manpages/hardy/man1/x11vnc.1.html
-function startx11vnc () { \
-  if [[ -n `which x11vnc` ]]; then
-    x11vnc -display :0 -autoport 5900 -forever -usepw -bg -o ${USER_HOME}/x11vnclog.txt -rfbauth ${USER_HOME}/.vnc/passwd ; \
-  fi
 }
 
 function git-committers () { \
@@ -81,27 +42,8 @@ function git-line-hist () {
   git log --pretty=short -u -L $1,$2:$3
 }
 
-#TODO generalize
-function new_chrome () { \
-  rsync -av --delete --exclude=/Singleton* --exclude=/Session* ~/.config/google-chrome/ /tmp/chrome2/ ; \
-  google-chrome --user-data-dir=/tmp/chrome2/ ; \
-}
-
-function coffeegrep () {
-  grep -R --include='*.coffee' $@ ;
-}
-
-function reactgrep () {
-  coffeegrep displayName:"[[:space:]]*'"$1"'" $2 ;
-}
-
-function lessgrep () {
-  grep -R --include='*.less' $@ ;
-}
-
-function pygrep () {
-  grep -R --include='*.py' $@ ;
-}
+alias lessgrep='grep -R --include=*.less'
+alias pygrep='grep -R --include=*.py'
 
 function termwidth () {
   printf '\e[8;%b;%bt' `tput lines` $1;
@@ -113,23 +55,4 @@ function prettyjson () {
 
 function clip () {
   xclip -selection clipboard ;
-}
-
-# See https://sites.google.com/a/vistarmedia.com/wiki/engineering/trafficking-migrations
-# Would -nf be useful here?
-function vistar-vpc-tunnel () {
-  ssh -Nvv -F ~/.ssh/config-for-vpc us-east-1b.vpc.vistarmedia.com ;
-}
-
-function apidev () {
-  psql -h localhost -U vistar -d api-development ;
-}
-
-function planningdev () {
-  psql -h localhost -U vistar -d planning-development ;
-}
-
-function testplatform () {
-  export NODE_PATH=./app ;
-  ./node_modules/.bin/mocha --compilers coffee:coffee-script -R spec $@ ;
 }
