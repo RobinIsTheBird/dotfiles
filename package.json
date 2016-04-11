@@ -19,7 +19,12 @@
   "bugs": {
     "url": "https://github.com/RobinIsTheBird/dotfiles/issues"
   },
-  "dependencies": {
-    "gulp": "~3.9.1"
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "lodash": "^4.9.0",
+    "merge-stream": "^1.0.0"
   }
 }
