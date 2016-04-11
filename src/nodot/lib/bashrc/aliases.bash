@@ -14,10 +14,7 @@ function findRoutes () { \
     sed -n '/routes\s*:/,/^\s*}/p' "$f" ; \
   done
 }
-function grepjs () { \
-  grep --include='*.js' -r "$@" * ; \
-}
-function grephist () { \
+function git-commit-grep () { \
   for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do \
     git cat-file -p $f | grep "$2" ; \
   done
@@ -43,8 +40,9 @@ function git-line-hist () {
   git log --pretty=short -u -L $1,$2:$3
 }
 
-alias lessgrep='grep -R --include=*.less'
-alias pygrep='grep -R --include=*.py'
+alias grepjs='grep -R --include=*.js'
+alias grepless='grep -R --include=*.less'
+alias greppy='grep -R --include=*.py'
 
 function termwidth () {
   printf '\e[8;%b;%bt' `tput lines` $1;
@@ -57,3 +55,15 @@ function prettyjson () {
 function clip () {
   xclip -selection clipboard ;
 }
+
+# From mschreiber:
+function xargspaces () { \
+  tr '\n' '\000' | xargs -0 "$@" ; \
+}
+# :From mschreiber
+# ~/bin/keychain id_rsa id_dsa
+# . ~/.keychain/$HOSTNAME-sh
+
+# sudo pmset -a hibernatemode 0
+
+# If X11 control-keys get set to just the key value, run setxkbmap.
