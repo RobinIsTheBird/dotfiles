@@ -1,0 +1,25 @@
+{
+  "name": "dotfiles",
+  "version": "0.1.0",
+  "description": "basic user config files",
+  "main": "echo \"No entry point specified\" && exit 1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RobinIsTheBird/dotfiles.git"
+  },
+  "keywords": [
+    "bashrc",
+    "vimrc"
+  ],
+  "author": "RobinIsTheBird",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/RobinIsTheBird/dotfiles/issues"
+  },
+  "dependencies": {
+    "gulp": "~3.9.1"
+  }
+}
