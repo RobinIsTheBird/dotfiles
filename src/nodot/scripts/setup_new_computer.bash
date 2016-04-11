@@ -30,6 +30,7 @@ sudo $PKGINSTALL \
   npm \
   openssh \
   python-virtualenv \
+  rlwrap \
   ssh \
   synaptic \
   ubuntu-desktop \
