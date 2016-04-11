@@ -1,5 +1,6 @@
 alias sudo='sudo -E'
-alias node="env NODE_NO_READLINE=1 rlwrap node"
+alias node="env NODE_NO_READLINE=1 rlwrap " \
+  "node -e \"require('repl').start({ignoreUndefined: true});\""
 
 function + () { \
   pushd $@ ; \
