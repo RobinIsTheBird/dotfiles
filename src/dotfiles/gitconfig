@@ -4,7 +4,7 @@
 [interactive]
 	singlekey = true
 [credential]
-	helper = cache --timeout 7200
+	helper = cache --timeout=7200
 [diff]
 	#More from: http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
 	algorithm = patience
