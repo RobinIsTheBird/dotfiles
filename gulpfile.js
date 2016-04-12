@@ -2,49 +2,56 @@ var del    = require('del');
 var fs     = require('fs');
 var gulp   = require('gulp');
 var debug  = require('gulp-debug');
+var gzip   = require('gulp-gzip');
 var rename = require('gulp-rename');
+var tar    = require('gulp-tar');
 var path   = require('path');
+var runSeq = require('run-sequence');
 
-var DOTSRC = 'src/dotfiles',
-    NODOTSRC = 'src/nodot';
+var DOT = 'dotfiles',
+    NODOT = 'nodot',
+    DOTSRC = path.join('src', DOT),
+    NODOTSRC = path.join('src', NODOT);
 
-var FILES = true,
-    DIRECTORIES = false;
-var filterSubs = function (parentDir, byDirectory) {
-  return fs.readdirSync(parentDir).filter(
-    function (childFile) {
-      var isDir = fs.statSync(path.join(parentDir, childFile)).isDirectory();
-      return byDirectory ? isDir : !isDir;
-    });
-};
-
-var CWD = '.';
 var BUILD = 'build';
-var INSTALL = 'install';
-var LIB = 'lib';
+var DIST = 'dist';
 
 gulp.task('clean', function () {
   del([
-    INSTALL,
+    DIST,
     BUILD
   ]);
 });
 
-gulp.task('nodot', function () {
-  gulp.src(path.join(NODOTSRC, '**/*.bash')).pipe(
-    gulp.dest(BUILD));
+gulp.task(NODOT, function () {
+  var stream = gulp.src(path.join(NODOTSRC, '**/*.bash'))
+      .pipe(gulp.dest(BUILD));
+  console.log(NODOT + ' return');
+  return stream;
 });
 
-gulp.task('dotdirectories', function () {
+gulp.task(DOT, function () {
+  var stream = gulp.src(path.join(DOTSRC, '*'))
+      .pipe(rename(function (path) {
+        path.basename = '.' + path.basename;
+      }))
+      .pipe(gulp.dest(BUILD));
+  console.log(DOT + ' return');
+  return stream;
 });
 
-gulp.task('dotfiles', function () {
-  gulp.src(path.join(DOTSRC, '*'), {
-    nodir: true
-  }).pipe(rename(function (path) {
-    path.basename = '.' + path.basename;
-  })).pipe(gulp.dest(BUILD));
+gulp.task(BUILD, [NODOT, DOT]);
+
+gulp.task('archive', function () {
+  var stream = gulp.src(path.join(BUILD, '*'))
+      .pipe(debug({title: 'build/*'}))
+      .pipe(tar('dotfiles.tar'))
+      .pipe(gzip())
+      .pipe(debug({title: 'archive'}))
+      .pipe(gulp.dest(DIST));
+  return stream;
 });
 
 gulp.task('default', function () {
+  runSeq([NODOT, DOT], 'archive');
 });
