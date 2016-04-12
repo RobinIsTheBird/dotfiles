@@ -1,0 +1,31 @@
+{
+  "name": "dotfiles",
+  "version": "0.1.0",
+  "description": "basic user config files",
+  "main": "npm install && gulp",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RobinIsTheBird/dotfiles.git"
+  },
+  "keywords": [
+    "bashrc",
+    "vimrc"
+  ],
+  "author": "RobinIsTheBird",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/RobinIsTheBird/dotfiles/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-gzip": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-tar": "^1.9.0",
+    "run-sequence": "^1.1.5"
+  }
+}
