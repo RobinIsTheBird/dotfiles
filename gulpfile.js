@@ -40,7 +40,12 @@ gulp.task(DOT, function () {
 gulp.task(BUILD, [NODOT, DOT]);
 
 gulp.task('archive', function () {
-  var stream = gulp.src([path.join(BUILD, '*'), path.join(BUILD, '.*')])
+  var stream = gulp.src([
+    path.join(BUILD, '*'),
+    path.join(BUILD, '**/*'),
+    path.join(BUILD, '.*'),
+    path.join(BUILD, '.**/*')
+  ])
       .pipe(tar('dotfiles.tar'))
       .pipe(gzip())
       .pipe(gulp.dest(DIST));
