@@ -4,6 +4,7 @@ var gulp   = require('gulp');
 var gzip   = require('gulp-gzip');
 var rename = require('gulp-rename');
 var tar    = require('gulp-tar');
+var zip    = require('gulp-zip');
 var path   = require('path');
 var runSeq = require('run-sequence');
 
@@ -13,7 +14,7 @@ var DOT = 'dotfiles',
     NODOTSRC = path.join('src', NODOT);
 
 var BUILD = 'build';
-var DIST = 'dist';
+var DIST = 'archive';
 
 gulp.task('clean', function () {
   del([
@@ -46,7 +47,7 @@ gulp.task(DOT, function () {
 
 gulp.task(BUILD, [NODOT, DOT]);
 
-gulp.task('archive', function () {
+gulp.task('tar-gzip', function () {
   var stream = gulp.src([
     path.join(BUILD, '*'),
     path.join(BUILD, '**/*')
@@ -57,6 +58,16 @@ gulp.task('archive', function () {
   return stream;
 });
 
+gulp.task('archive', function () {
+  var stream = gulp.src([
+    path.join(BUILD, '*'),
+    path.join(BUILD, '**/*')
+  ], {dot: true})
+      .pipe(zip('master.zip')) // Satisfies the Download ZIP link on github page
+      .pipe(gulp.dest(DIST));
+  return stream;
+});
+
 gulp.task('default', function () {
-  runSeq([NODOT, DOT], 'archive');
+  runSeq([NODOT, DOT], ['archive', 'tar-gzip']);
 });
