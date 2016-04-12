@@ -29,9 +29,17 @@ gulp.task(NODOT, function () {
 });
 
 gulp.task(DOT, function () {
-  var stream = gulp.src(path.join(DOTSRC, '*'))
+  var stream = gulp.src([
+    path.join(DOTSRC, '*'),
+    path.join(DOTSRC, '**/*')
+  ], {dot: true})
       .pipe(rename(function (path) {
-        path.basename = '.' + path.basename;
+        console.log(path);
+        if (path.dirname !== '.') {
+          path.dirname = '.' + path.dirname;
+        } else {
+          path.basename = '.' + path.basename;
+        }
       }))
       .pipe(gulp.dest(BUILD));
   return stream;
@@ -42,10 +50,8 @@ gulp.task(BUILD, [NODOT, DOT]);
 gulp.task('archive', function () {
   var stream = gulp.src([
     path.join(BUILD, '*'),
-    path.join(BUILD, '**/*'),
-    path.join(BUILD, '.*'),
-    path.join(BUILD, '.**/*')
-  ])
+    path.join(BUILD, '**/*')
+  ], {dot: true})
       .pipe(tar('dotfiles.tar'))
       .pipe(gzip())
       .pipe(gulp.dest(DIST));
