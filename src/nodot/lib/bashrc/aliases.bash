@@ -59,6 +59,10 @@ function clip () {
   xclip -selection clipboard ;
 }
 
+function manindex () {
+  find /usr/share/man/man$1/* \! -type l | xargs lexgrog -w | sed -e 's/^[^:]*:\s*//' | less
+}
+
 # From mschreiber:
 function xargspaces () { \
   tr '\n' '\000' | xargs -0 "$@" ; \
