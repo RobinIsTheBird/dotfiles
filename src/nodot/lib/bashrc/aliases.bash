@@ -60,7 +60,7 @@ function clip () {
 }
 
 function manindex () {
-  find /usr/share/man/man$1/* \! -type l | xargs lexgrog -w | sed -e 's/^[^:]*:\s*//' | less
+  man -k $1 '.*' ;
 }
 
 # From mschreiber:
