@@ -9,4 +9,4 @@
 . $HOME/lib/bashrc/ubuntu_aliases.bash
 . $HOME/lib/bashrc/aliases.bash
 print_host_info
-. $HOME/lib/bashrc/virtual_envirnoments.bash
+. $HOME/lib/bashrc/virtual_environments.bash
