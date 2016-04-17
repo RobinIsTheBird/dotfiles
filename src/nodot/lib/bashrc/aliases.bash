@@ -60,7 +60,7 @@ function clip () {
 }
 
 function manindex () {
-  man -k $1 '.*' ;
+  man -S $1 -k '.*' ;
 }
 
 # From mschreiber:
