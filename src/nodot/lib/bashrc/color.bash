@@ -33,4 +33,4 @@ FHBL="\[\033[01;34m\]" # foreground hicolor blue
 FHMA="\[\033[01;35m\]" # foreground hicolor magenta
 FHCY="\[\033[01;36m\]" # foreground hicolor cyan
 
-export PS1="${debian_chroot:+($debian_chroot)}$FHGR\@$RS:$FHCY\w$FHYE\$ $RS"
+export PS1="${debian_chroot:+($debian_chroot)}$FHGR\d$RS:$FHCY\w$FHYE\$ $RS"
