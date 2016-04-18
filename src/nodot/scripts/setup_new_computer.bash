@@ -33,6 +33,7 @@ sudo $PKGINSTALL \
   rlwrap \
   ssh \
   synaptic \
+  tkinfo \
   ubuntu-desktop \
   ubuntu-session \
   unity8 \
