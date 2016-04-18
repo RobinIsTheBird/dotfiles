@@ -7,6 +7,7 @@ PKGINSTALL=$([[ -f $(type -p apt-get) ]] && echo "apt-get install" || "")
 #TODO same thing for type -p port for OS X
 
 sudo $PKGINSTALL \
+  arp-scan \
   bash-doc \
   build-essential \
   chromium \
