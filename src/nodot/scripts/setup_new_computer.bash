@@ -86,4 +86,7 @@ curl 'https://linux.dropbox.com/packages/dropbox.py' \
 -H 'referer: https://www.dropbox.com/install?os=lnx' --compressed \
 > ~/scripts/dropbox.py
 
+#TODO setup a JRE and JDK
+#TODO setup Canon with CUPS, or networked through the Mac
+
 unset PKGINSTALL
