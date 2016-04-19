@@ -64,7 +64,7 @@ vim -u NONE \
   -c "helptags vim-fugitive/doc" \
   -c q
 
-# dropbox
+# dropbox from https://www.dropbox.com/install?os=lnx
 #TODO enable samba. dropboxd presently complains:
 # Nautilus-Share-Message: Called "net usershare info" but it failed: 'net
 # usershare' returned error 255: net usershare: cannot open usershare directory
@@ -75,5 +75,15 @@ vim -u NONE \
 # (nautilus:4688): GLib-CRITICAL **: Source ID 4829 was not found when attempting to remove it
 (cd && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | \
   tar xzf - && (~/.dropbox-dist/dropboxd 2| tee /var/tmp/dropboxd.log) &)
+curl 'https://linux.dropbox.com/packages/dropbox.py' \
+-H 'pragma: no-cache' \
+-H 'accept-encoding: gzip, deflate, sdch' \
+-H 'accept-language: en-US,en;q=0.8' \
+-H 'upgrade-insecure-requests: 1' \
+-H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
+-H 'cache-control: no-cache' \
+-H 'cookie: locale=en; t=NRsep5qBZw3wDclF1_501lvB' \
+-H 'referer: https://www.dropbox.com/install?os=lnx' --compressed \
+> ~/scripts/dropbox.py
 
 unset PKGINSTALL
