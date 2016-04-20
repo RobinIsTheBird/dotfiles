@@ -8,7 +8,7 @@
 # ANSI color codes
 RS=$(tput sgr0)    # reset
 HC=$(tput bold)    # hicolor
-UL="\e[4m"    # underline
+UL=$(tput smul)    # underline
 INV=$(tput rev)    # inverse background and foreground
 BLK=$(tput setaf 0)
 RED=$(tput setaf 1)
