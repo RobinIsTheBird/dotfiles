@@ -43,9 +43,18 @@ function git-line-hist () {
   git log --pretty=short -u -L $1,$2:$3
 }
 
-alias grepjs='grep -R --include=*.js'
-alias grepless='grep -R --include=*.less'
-alias greppy='grep -R --include=*.py'
+function grepjs () {
+  grep -R --include='*.js' "$@"
+}
+function grepless () {
+  grep -R --include='*.less' "$@"
+}
+function greppy () {
+  grep -R --include='*.py' "$@"
+}
+function grepbash () {
+  grep -R --include='*.bash' "$@"
+}
 
 function termwidth () {
   printf '\e[8;%b;%bt' `tput lines` $1;
@@ -64,8 +73,8 @@ function manindex () {
 }
 
 # From mschreiber:
-function xargspaces () { \
-  tr '\n' '\000' | xargs -0 "$@" ; \
+function xargspaces () {
+  tr '\n' '\000' | xargs -0 "$@" ;
 }
 # :From mschreiber
 # ~/bin/keychain id_rsa id_dsa
