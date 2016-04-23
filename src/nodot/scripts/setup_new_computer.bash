@@ -91,8 +91,10 @@ curl 'https://linux.dropbox.com/packages/dropbox.py' \
   > $HOME/bin/dropbox.py
 chmod a+x $HOME/bin/dropbox.py
 ln -s $HOME/bin/dropbox.py $HOME/bin/dropbox
+ME=$(whoami)
+GROUP=id -gn $ME
 sudo mkdir -p /dropbox/robin
-sudo chown robin:robin dropbox/robin
+sudo chown $ME:$GROUP dropbox/robin
 chmod 770 /dropbox/robin
 echo 'NOTE: dropbox setup is not done.'
 echo 'from instructions at http://www.dropboxwiki.com/tips-and-tricks/install-dropbox-in-an-entirely-text-based-linux-environment'
