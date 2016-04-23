@@ -6,10 +6,10 @@ alias sudo='sudo -E'
 alias node="env NODE_NO_READLINE=1 rlwrap node -e \"require('repl').start({ignoreUndefined: true});\""
 
 function + () { \
-  pushd $@ ; \
+  pushd "$@" ; \
 }
 function - () { \
-  popd $@ ; \
+  popd "$@" ; \
 }
 function findRoutes () { \
   for f in "$@" ; do \
@@ -23,7 +23,7 @@ function git-commit-grep () { \
   done
 }
 function git-merge-base () { \
-  git merge-base --all --octopus $@ | xargs git terselog -1 ; \
+  git merge-base --all --octopus "$@" | xargs git terselog -1 ; \
 }
 
 function git-committers () { \
@@ -61,7 +61,7 @@ function termwidth () {
 }
 
 function prettyjson () {
-  python -m json.tool $@ ;
+  python -m json.tool "$@" ;
 }
 
 function clip () {
