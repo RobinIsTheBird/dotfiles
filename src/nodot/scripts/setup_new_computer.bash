@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 # Perform initial setup for a new computer
 
+# Cache the sudo credentials
+sudo echo ''
+
 . $HOME/lib/common/systemdetect.bash
+mkdir $HOME/bin
 
 PKGINSTALL=$([[ -f $(type -p apt-get) ]] && echo "apt-get install" || "")
 #TODO same thing for type -p port for OS X
@@ -76,15 +80,26 @@ vim -u NONE \
 (cd && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | \
   tar xzf - && (~/.dropbox-dist/dropboxd 2| tee /var/tmp/dropboxd.log) &)
 curl 'https://linux.dropbox.com/packages/dropbox.py' \
--H 'pragma: no-cache' \
--H 'accept-encoding: gzip, deflate, sdch' \
--H 'accept-language: en-US,en;q=0.8' \
--H 'upgrade-insecure-requests: 1' \
--H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
--H 'cache-control: no-cache' \
--H 'cookie: locale=en; t=NRsep5qBZw3wDclF1_501lvB' \
--H 'referer: https://www.dropbox.com/install?os=lnx' --compressed \
-> ~/scripts/dropbox.py
+  -H 'pragma: no-cache' \
+  -H 'accept-encoding: gzip, deflate, sdch' \
+  -H 'accept-language: en-US,en;q=0.8' \
+  -H 'upgrade-insecure-requests: 1' \
+  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
+  -H 'cache-control: no-cache' \
+  -H 'cookie: locale=en; t=NRsep5qBZw3wDclF1_501lvB' \
+  -H 'referer: https://www.dropbox.com/install?os=lnx' --compressed \
+  > $HOME/bin/dropbox.py
+chmod a+x $HOME/bin/dropbox.py
+ln -s $HOME/bin/dropbox.py $HOME/bin/dropbox
+sudo mkdir -p /dropbox/robin
+sudo chown robin:robin dropbox/robin
+chmod 770 /dropbox/robin
+echo 'NOTE: dropbox setup is not done.'
+echo 'from instructions at http://www.dropboxwiki.com/tips-and-tricks/install-dropbox-in-an-entirely-text-based-linux-environment'
+echo '$ dropbox stop'
+echo '$ mv ~/Dropbox /dropbox/robin'
+echo '$ ln -s /dropbox/robin/Dropbox ~/'
+echo '$ dropbox start'
 
 #TODO setup a JRE and JDK
 #TODO setup Canon with CUPS, or networked through the Mac
