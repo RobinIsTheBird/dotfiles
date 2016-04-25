@@ -19,4 +19,7 @@ MAG=$(tput setaf 5)
 CYN=$(tput setaf 6)
 WHT=$(tput setaf 7)
 
-export PS1="${debian_chroot:+($debian_chroot)}$HC$GRN\d$RS:$HC$CYN\w$HC$YEL\$ $RS"
+# Something seems wrong with the terminfo's tput bold,
+# causing the shell to think there are more characters than there are.
+# export PS1="${debian_chroot:+($debian_chroot)}\[$HC\]\[$GRN\]\d\[$RS\]:\[$HC\]\[$CYN\]\w\[$HC\]\[$YEL\]\$ \[$RS\]"
+export PS1="${debian_chroot:+($debian_chroot)}\[$GRN\]\d\[$RS\]:\[$CYN\]\w\[$YEL\]\$ \[$RS\]"
