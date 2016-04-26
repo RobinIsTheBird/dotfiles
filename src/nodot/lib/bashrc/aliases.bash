@@ -57,7 +57,7 @@ function grepbash () {
 }
 
 function termwidth () {
-  printf '\e[8;%b;%bt' `tput lines` $1;
+  printf '\e[8;%b;%bt' $(tput lines) $1;
 }
 
 function prettyjson () {

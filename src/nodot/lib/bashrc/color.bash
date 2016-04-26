@@ -19,4 +19,33 @@ MAG=$(tput setaf 5)
 CYN=$(tput setaf 6)
 WHT=$(tput setaf 7)
 
+# Quote concatenated variables with begin/end
+# Example
+# A=aaa; B=bbb; C=ccc
+# qut '[' ']' A B C
+# ==> [aaabbbccc]
+function qut {
+  local end_; end_=$2
+  local code; code=$1
+  shift 2
+  while (( $# > 0 )) ; do \
+    code+=${!1}
+    shift 1
+  done;
+  code+="$end_"
+  echo $code
+}
+
+# Escape non printable codes for shell prompting
+function ps_ {
+  qut "\[" "\]" "$@"
+}
+
+# Escape non printable codes for use with bash's builtin read
+# Example:
+# read -e -p "$(rl_ YEL)Enter $(rl_ HC CYN)some text$(rl_ RS): "
+function rl_ {
+  qut $'\001' $'\002' "$@"
+}
+
 export PS1="${debian_chroot:+($debian_chroot)}\[$HC$GRN\]\d\[$RS\]:\[$HC$CYN\]\w\[$YEL\]\$ \[$RS\]"
