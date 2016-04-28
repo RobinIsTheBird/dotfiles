@@ -8,11 +8,11 @@ curl -LSs \
 -H 'Upgrade-Insecure-Requests: 1'  --compressed | \
 sudo tar -C /usr/local xzf -
 
-mkdir -p $HOME/Dev/go_workspace/src/github.com/RobinIsTheBird/hello
-mkdir -p $HOME/Dev/go_workspace/bin
 export GOPATH=$HOME/Dev/go_workspace
 export GOBIN=$GOPATH/bin
 gohellosrc=$GOPATH/src/github.com/RobinIsTheBird/hello
+mkdir -p $gohellosrc
+mkdir -p $GOBIN
 cat > $gohellosrc/hello.go <<_END_
 package main
 
