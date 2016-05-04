@@ -4,5 +4,4 @@
 
 . $HOME/pyenv/standard2.7/bin/activate
 nvm use -g v4.4.2
-. $HOME/.gvm/scripts/gvm
 gvm use go1.6.2 --default

@@ -8,6 +8,8 @@ curl -LSs \
 -H 'Upgrade-Insecure-Requests: 1'  --compressed | \
 sudo tar -C /usr/local xzf -
 
+export GOROOT_BOOTSTRAP=/usr/local/go
+export PATH=$GOROOT_BOOTSTRAP/bin:$PATH
 export GOPATH=$HOME/Dev/go_workspace
 export GOBIN=$GOPATH/bin
 gohellosrc=$GOPATH/src/github.com/RobinIsTheBird/hello

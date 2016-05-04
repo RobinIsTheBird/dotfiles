@@ -24,11 +24,13 @@ sudo $pkginstall \
   gvim \
   inxi \
   libssl-dev \
+  mailutils \
   node \
   npm \
   openssh \
   python-virtualenv \
   rlwrap \
+  sendmail \
   ssh \
   synaptic \
   tkinfo \
