@@ -10,6 +10,7 @@ sudo $pkginstall \
   chromium \
   curl \
   dpkg-dev \
+  ethtool \
   gconf-editor \
   gdebi \
   gdm \
@@ -34,6 +35,7 @@ sudo $pkginstall \
   ssh \
   synaptic \
   tkinfo \
+  traceroute \
   ubuntu-desktop \
   ubuntu-session \
   unity8 \
