@@ -8,11 +8,12 @@
 # with defaults but allow overrides and describe in usage.
 
 # Require sudo credential cache
-sudo -n echo -n '' || exit 1
+. ../lib/common/prime_sudo_cache.bash
 
-. $HOME/lib/common/systemdetect.bash
+. ../lib/common/systemdetect.bash
 mkdir $HOME/bin
 
+bash ./new_computer/update_etc.bash
 bash ./new_computer/pkg_install.bash
 bash ./new_computer/virtual_py.bash
 bash ./new_computer/node_version.bash
