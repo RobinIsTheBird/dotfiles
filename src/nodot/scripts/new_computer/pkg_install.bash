@@ -3,6 +3,7 @@
 pkgmgr=$(type -p apt-get); pkginstall=${pkgmgr:+"$pkgmgr install"}
 
 sudo $pkginstall \
+  apache2-bin \
   arp-scan \
   bash-doc \
   bison \
@@ -26,6 +27,8 @@ sudo $pkginstall \
   inxi \
   libssl-dev \
   mailutils \
+  ndiswrapper-utils-1.9 \
+  nfs-common \
   node \
   npm \
   openssh \
