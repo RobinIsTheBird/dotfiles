@@ -4,4 +4,6 @@
 
 . $HOME/pyenv/standard2.7/bin/activate
 nvm use -g v4.4.2
-gvm use go1.6.2 --default
+echo 'Cannot do `gvm use go1.6.2 --default` within bashrc.'
+echo "It fails with Unrecognized command line argument: 'use'"
+echo 'even though ${GVM_ROOT}/scripts/env/use exists'
