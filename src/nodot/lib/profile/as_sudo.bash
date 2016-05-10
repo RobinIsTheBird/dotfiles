@@ -2,6 +2,8 @@
 
 . ../common/prime_sudo_cache.bash
 
+ping -c 1 -W 5 -q syn-13 &>/dev/null || exit 0
+
 pgrep rpcbind &>/dev/null || sudo /sbin/rpcbind
 web="/mnt/Syn-13/web"
 robin="/mnt/Syn-13/Robin"
