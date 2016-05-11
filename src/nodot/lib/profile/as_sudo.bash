@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. ../common/prime_sudo_cache.bash
+. $HOME/lib/common/prime_sudo_cache.bash
 
 ping -c 1 -W 5 -q syn-13 &>/dev/null || exit 0
 

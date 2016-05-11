@@ -8,18 +8,18 @@
 # with defaults but allow overrides and describe in usage.
 
 # Require sudo credential cache
-. ../lib/common/prime_sudo_cache.bash
+. $HOME/lib/common/prime_sudo_cache.bash
 
-. ../lib/common/systemdetect.bash
-mkdir $HOME/bin
+. $HOME/lib/common/systemdetect.bash
+mkdir -p $HOME/bin
 
-bash ./new_computer/update_etc.bash
-bash ./new_computer/pkg_install.bash
-bash ./new_computer/virtual_py.bash
-bash ./new_computer/node_version.bash
-bash ./new_computer/go_version.bash
-bash ./new_computer/vim_plugins.bash
-bash ./new_computer/dropbox_setup.bash
+bash $HOME/scripts/new_computer/update_etc.bash
+bash $HOME/scripts/new_computer/pkg_install.bash
+bash $HOME/scripts/new_computer/virtual_py.bash
+bash $HOME/scripts/new_computer/node_version.bash
+bash $HOME/scripts/new_computer/go_version.bash
+bash $HOME/scripts/new_computer/vim_plugins.bash
+bash $HOME/scripts/new_computer/dropbox_setup.bash
 
 #TODO test on an ubuntu VM fresh install
 #TODO setup a JRE and JDK
