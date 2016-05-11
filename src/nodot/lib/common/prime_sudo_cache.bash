@@ -12,5 +12,4 @@ if [[ ! -e $HOME/.pwrc ]] || ! is_400 $HOME/.pwrc ; then
   echo 'Please put your password in ~/.pwrc and chmod 400'
   exit 0
 fi
-echo 'Found .pwrc'
 cat $HOME/.pwrc | sudo -S /bin/true &>/dev/null # cache password
