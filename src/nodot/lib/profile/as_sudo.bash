@@ -4,6 +4,8 @@
 
 # Steve presently has ping disabled
 # ping -c 1 -W 5 -q syn-13 &>/dev/null || exit 0
+# instead, use net cat
+nc -z syn-13 22 || exit 0
 
 pgrep rpcbind &>/dev/null || sudo /sbin/rpcbind
 web="/mnt/Syn-13/web"
