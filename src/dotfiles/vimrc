@@ -55,6 +55,9 @@ Plugin 'vim-scripts/scratch.vim'
 " https://github.com/JulesWang/css.vim
 Plugin 'JulesWang/css.vim'
 
+" https://github.com/fatih/vim-go
+Plugin 'fatih/vim-go'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
