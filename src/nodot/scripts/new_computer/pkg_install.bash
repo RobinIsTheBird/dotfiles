@@ -30,6 +30,7 @@ sudo $pkginstall \
   mailutils \
   ndiswrapper-utils-1.9 \
   nfs-common \
+  nmap \
   node \
   npm \
   openssh \
