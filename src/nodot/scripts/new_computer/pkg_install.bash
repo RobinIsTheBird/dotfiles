@@ -23,6 +23,7 @@ sudo $pkginstall \
   gnome-session-canberra \
   gnome-session-common \
   gnome-shell \
+  gpgsm \
   gnupg-agent \
   grub-doc \
   gvim \
