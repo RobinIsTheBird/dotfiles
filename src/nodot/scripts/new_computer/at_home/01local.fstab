@@ -1,0 +1,3 @@
+syn-13:/volume1/web /mnt/Syn-13/web nfs rw,user,noauto 0 0
+syn-13:/volume1/Robin /mnt/Syn-13/Robin nfs rw,user,noauto 0 0
+syn-14:/volume1/robin /mnt/Syn-14/Robin nfs rw,user,noauto 0 0

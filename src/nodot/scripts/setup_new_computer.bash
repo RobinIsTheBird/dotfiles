@@ -9,11 +9,13 @@
 
 # Require sudo credential cache
 . $HOME/lib/common/prime_sudo_cache.bash
-
 . $HOME/lib/common/systemdetect.bash
 mkdir -p $HOME/bin
 
-bash $HOME/scripts/new_computer/update_etc.bash
+if [ $AT_HOME -eq 0 ] ; then
+  bash $HOME/scripts/new_computer/at_home/update_etc.bash;
+  bash $HOME/scripts/new_computer/at_home/setup_backups.bash;
+fi
 bash $HOME/scripts/new_computer/pkg_install.bash
 bash $HOME/scripts/new_computer/virtual_py.bash
 bash $HOME/scripts/new_computer/node_version.bash
