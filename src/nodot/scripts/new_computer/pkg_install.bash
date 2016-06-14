@@ -25,6 +25,7 @@ sudo $pkginstall \
   gnome-shell \
   gpgsm \
   gnupg-agent \
+  gnupg-doc \
   grub-doc \
   gvim \
   inxi \
