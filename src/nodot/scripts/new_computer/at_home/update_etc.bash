@@ -32,3 +32,20 @@ if [ $MAX -gt 1 ] ; then
   sudo cp -p /etc/hosts /etc/hosts.old;
   sudo mv /tmp/hosts /etc/hosts;
 fi
+
+unset MAX
+unset ADD_HOSTS
+unset CANON
+unset FOUND_CANON
+unset CANON_IP
+unset SED_CMD
+
+mkdir -p /mnt/Syn-13/web
+mkdir -p /mnt/Syn-13/Robin
+mkdir -p /mnt/Syn-14/Robin
+grep -q "Syn-13/web" /etc/fstab && \
+  sudo echo 'syn-13:/volume1/web /mnt/Syn-13/web nfs rw,user,noauto 0 0' >> /etc/fstab;
+grep -q "Syn-13/Robin" /etc/fstab && \
+  sudo echo 'syn-13:/volume1/Robin /mnt/Syn-13/Robin nfs rw,user,noauto 0 0' >> /etc/fstab;
+grep -q "Syn-14/Robin" /etc/fstab && \
+  sudo echo 'syn-14:/volume1/robin /mnt/Syn-14/Robin nfs rw,user,noauto 0 0' >> /etc/fstab;
