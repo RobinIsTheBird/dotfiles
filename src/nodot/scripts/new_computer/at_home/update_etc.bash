@@ -20,7 +20,9 @@ ADD_HOSTS='/^$/i'
 ! grep -q "esxi" /etc/hosts && \
   ADD_HOSTS[${#ADD_HOSTS[@]}]="192.168.10.11 esxi"
 
-if [ ${#ADD_HOSTS[@]} -gt 1 ] ; then
+MAX=${#ADD_HOSTS[@]}
+if [ $MAX -gt 1 ] ; then
+  let MAX=MAX-1;
   SED_CMD=
   for i in ${!ADD_HOSTS[@]}; do
     SED_CMD=${SED_CMD}${ADD_HOSTS[$i]};
