@@ -14,7 +14,6 @@ mkdir -p $HOME/bin
 
 if [ $AT_HOME -eq 0 ] ; then
   bash $HOME/scripts/new_computer/at_home/update_etc.bash;
-  bash $HOME/scripts/new_computer/at_home/setup_backups.bash;
 fi
 bash $HOME/scripts/new_computer/pkg_install.bash
 bash $HOME/scripts/new_computer/virtual_py.bash

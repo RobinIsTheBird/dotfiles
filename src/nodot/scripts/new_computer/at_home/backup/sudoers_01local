@@ -1,3 +1,0 @@
-Cmnd_Alias BACKUP_COMMANDS = /usr/bin/duplicity, /bin/chown, /bin/chmod
-
-backup  ALL=NOPASSWD: BACKUP_COMMANDS
