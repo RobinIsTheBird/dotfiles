@@ -5,6 +5,7 @@ pkgmgr=$(type -p apt-get); pkginstall=${pkgmgr:+"$pkgmgr install"}
 sudo $pkginstall \
   apache2-bin \
   arp-scan \
+  at \
   bash-doc \
   bison \
   build-essential \
@@ -31,6 +32,7 @@ sudo $pkginstall \
   inxi \
   libssl-dev \
   mailutils \
+  mailutils-doc \
   ndiswrapper-utils-1.9 \
   nfs-common \
   nmap \
