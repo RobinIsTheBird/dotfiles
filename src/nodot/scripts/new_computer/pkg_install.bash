@@ -20,6 +20,8 @@ sudo $pkginstall \
   gksu \
   gksudo \
   gnome-common \
+  gnome-gmail \
+  gnome-gmail-notifier \
   gnome-session \
   gnome-session-canberra \
   gnome-session-common \
