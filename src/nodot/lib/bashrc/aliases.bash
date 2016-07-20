@@ -18,7 +18,8 @@ function findRoutes () {
   done
 }
 function git () {
-  hub "$@" ;
+  HUB=/usr/local/bin/hub
+  [ -f $HUB ] && $HUB "$@" || /usr/bin/git "$@" ;
 }
 function git-commit-grep () {
   for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do
