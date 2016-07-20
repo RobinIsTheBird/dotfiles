@@ -20,7 +20,10 @@ bash $HOME/scripts/new_computer/virtual_py.bash
 bash $HOME/scripts/new_computer/node_version.bash
 bash $HOME/scripts/new_computer/go_version.bash
 bash $HOME/scripts/new_computer/vim_plugins.bash
-bash $HOME/scripts/new_computer/dropbox_setup.bash
+if [ $AT_HOME -eq 0 ] ; then
+  bash $HOME/scripts/new_computer/dropbox_setup.bash
+  bash $HOME/scripts/new_computer/tarballs.bash
+fi
 
 #TODO test on an ubuntu VM fresh install
 #TODO setup a JRE and JDK

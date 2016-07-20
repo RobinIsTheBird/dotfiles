@@ -5,32 +5,35 @@
 alias sudo='sudo -E'
 alias node="env NODE_NO_READLINE=1 rlwrap node -e \"require('repl').start({ignoreUndefined: true});\""
 
-function + () { \
-  pushd "$@" ; \
+function + () {
+  pushd "$@" ;
 }
-function - () { \
-  popd "$@" ; \
+function - () {
+  popd "$@" ;
 }
-function findRoutes () { \
-  for f in "$@" ; do \
+function findRoutes () {
+  for f in "$@" ; do
     echo "$f:" ;
-    sed -n '/routes\s*:/,/^\s*}/p' "$f" ; \
+    sed -n '/routes\s*:/,/^\s*}/p' "$f" ;
   done
 }
-function git-commit-grep () { \
-  for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do \
-    git cat-file -p $f | grep "$2" ; \
+function git () {
+  hub "$@" ;
+}
+function git-commit-grep () {
+  for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do
+    git cat-file -p $f | grep "$2" ;
   done
 }
 function git-merge-base () { \
   git merge-base --all --octopus "$@" | xargs git terselog -1 ; \
 }
 
-function git-committers () { \
+function git-committers () {
   if (($# < 2)); then
     echo Usage: git-committers other-branch interesting-branch
     echo where other-branch contains commits to omit from the log of interesting-branch.
-    return ; \
+    return ;
   fi ;
   git authorlog --cherry-pick --right-only $1...$2 | sed 's/.*| //' | sed 's/:.*//' | sort -u
 }
@@ -54,6 +57,13 @@ function greppy () {
 }
 function grepbash () {
   grep -R --include='*.bash' "$@"
+}
+function grephtml () {
+  grep -R --include='*.html' "$@"
+}
+
+function alltypes () {
+  type -a "$1" | sed '/^\w\+.*)/,/^}/d'
 }
 
 function termwidth () {
