@@ -3,7 +3,9 @@
 # Intended to be used with "source" or ".".
 
 . $HOME/pyenv/standard2.7/bin/activate
+. $HOME/lib/common/py_virtualenvwrapper.bash
+workon standard2.7
 nvm use -g v4.4.2
-echo 'Cannot do `gvm use go1.6.2 --default` within bashrc.'
-echo "It fails with Unrecognized command line argument: 'use'"
-echo 'even though ${GVM_ROOT}/scripts/env/use exists'
+# echo 'Cannot do `gvm use go1.6.2 --default` within bashrc.'
+# echo "It fails with Unrecognized command line argument: 'use'"
+# echo 'even though ${GVM_ROOT}/scripts/env/use exists'
