@@ -83,6 +83,12 @@ function manindex () {
   man -S $1 -k '.*' ;
 }
 
+if [[ -x $(which hasher) ]] ; then
+  function show_hash () {
+    hasher $1 | gedit -
+  } ;
+fi
+
 # From mschreiber:
 function xargspaces () {
   tr '\n' '\000' | xargs -0 "$@" ;
