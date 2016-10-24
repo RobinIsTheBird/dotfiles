@@ -143,3 +143,5 @@ set statusline+=%*
 
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }
+
+command! -range -bang Xclip <line1>,<line2>w !xclip -selection clipboard
