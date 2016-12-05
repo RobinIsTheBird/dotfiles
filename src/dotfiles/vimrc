@@ -61,6 +61,9 @@ Plugin 'fatih/vim-go'
 "https://github.com/Valloric/YouCompleteMe
 Plugin 'Valloric/YouCompleteMe'
 
+"https://github.com/idanarye/vim-merginal
+Plugin 'idanarye/vim-merginal'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -136,12 +139,23 @@ command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=h
 " inoremap <C-Space> <Esc>
 
 " From https://github.com/scrooloose/syntastic
-set statusline=%t\ %l\ %y
+set statusline=%t\ %m%y
 set statusline+=\ %#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set statusline+=\ (%l,\ %c)
 
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
+"disable syntastic on a per buffer basis (some work files blow it up)
+function! SyntasticDisableBuffer()
+  let b:syntastic_skip_checks = 1
+  SyntasticReset
+  echo 'Syntastic disabled for this buffer'
+endfunction
+
+command! SyntasticDisableBuffer call SyntasticDisableBuffer()
+
+nmap CTRL-Wa :execute winline() 'split' <CR>
 command! -range -bang Xclip <line1>,<line2>w !xclip -selection clipboard

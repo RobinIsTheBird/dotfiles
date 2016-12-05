@@ -62,6 +62,9 @@ function grepbash () {
 function grephtml () {
   grep -R --include='*.html' "$@"
 }
+function grepex () {
+  grep -R --exclude='*.pyc' --exclude='*.po' --exclude='*.pdf' --exclude='*.sw*' --exclude='*.orig' --exclude-dir='node_modules' "$@"
+}
 
 function alltypes () {
   type -a "$1" | sed '/^\w\+.*)/,/^}/d'
