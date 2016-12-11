@@ -5,32 +5,36 @@
 alias sudo='sudo -E'
 alias node="env NODE_NO_READLINE=1 rlwrap node -e \"require('repl').start({ignoreUndefined: true});\""
 
-function + () { \
-  pushd "$@" ; \
+function + () {
+  pushd "$@" ;
 }
-function - () { \
-  popd "$@" ; \
+function - () {
+  popd "$@" ;
 }
-function findRoutes () { \
-  for f in "$@" ; do \
+function findRoutes () {
+  for f in "$@" ; do
     echo "$f:" ;
-    sed -n '/routes\s*:/,/^\s*}/p' "$f" ; \
+    sed -n '/routes\s*:/,/^\s*}/p' "$f" ;
   done
 }
-function git-commit-grep () { \
-  for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do \
-    git cat-file -p $f | grep "$2" ; \
+function git () {
+  HUB=/usr/local/bin/hub
+  [ -f $HUB ] && $HUB "$@" || /usr/bin/git "$@" ;
+}
+function git-commit-grep () {
+  for f in `git log "$1" | grep '^commit' | sed -e 's/commit //' -e 's#$#:'"$1"'#'` ; do
+    git cat-file -p $f | grep "$2" ;
   done
 }
 function git-merge-base () { \
   git merge-base --all --octopus "$@" | xargs git terselog -1 ; \
 }
 
-function git-committers () { \
+function git-committers () {
   if (($# < 2)); then
     echo Usage: git-committers other-branch interesting-branch
     echo where other-branch contains commits to omit from the log of interesting-branch.
-    return ; \
+    return ;
   fi ;
   git authorlog --cherry-pick --right-only $1...$2 | sed 's/.*| //' | sed 's/:.*//' | sort -u
 }
@@ -55,6 +59,16 @@ function greppy () {
 function grepbash () {
   grep -R --include='*.bash' "$@"
 }
+function grephtml () {
+  grep -R --include='*.html' "$@"
+}
+function grepex () {
+  grep -R --exclude='*.pyc' --exclude='*.po' --exclude='*.pdf' --exclude='*.sw*' --exclude='*.orig' --exclude-dir='node_modules' "$@"
+}
+
+function alltypes () {
+  type -a "$1" | sed '/^\w\+.*)/,/^}/d'
+}
 
 function termwidth () {
   printf '\e[8;%b;%bt' $(tput lines) $1;
@@ -71,6 +85,12 @@ function clip () {
 function manindex () {
   man -S $1 -k '.*' ;
 }
+
+if [[ -x $(which hasher) ]] ; then
+  function show_hash () {
+    hasher $1 | gedit -
+  } ;
+fi
 
 # From mschreiber:
 function xargspaces () {

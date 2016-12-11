@@ -48,4 +48,4 @@ function rl_ {
   qut $'\001' $'\002' "$@"
 }
 
-export PS1="${debian_chroot:+($debian_chroot)}$(ps_ HC GRN)\d$(ps_ RS):$(ps_ HC CYN)\w$(ps_ YEL)\$ $(ps_ RS)"
+export PS1="${debian_chroot:+($debian_chroot)}$(ps_ HC GRN)\t$(ps_ RS):$(ps_ HC CYN)\w$(ps_ YEL)\$ $(ps_ RS)"

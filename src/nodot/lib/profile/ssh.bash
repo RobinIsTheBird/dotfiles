@@ -7,4 +7,4 @@
 # in ~/.ssh. If not, use ssh-keygen to create them.
 # Add them to the agent with ssh-add.
 # Logout and log back in again to restart the agent.
-eval $(ssh-agent -s)
+pgrep ssh-agent >/dev/null || eval $(ssh-agent -s)
