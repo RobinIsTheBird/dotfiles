@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-sudo cp $HOME/scripts/new_computer/at_home/01local.fstab /etc/fstab.d/01local
+LOCAL_FSTAB=$HOME/scripts/new_computer/at_home/01local.fstab
+[ -f $LOCAL_FSTAB ] && sudo cp $LOCAL_FSTAB /etc/fstab.d/01local
 
 CANON=$(sudo arp-scan -l | grep -i canon)
 FOUND_CANON=$?
