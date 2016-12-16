@@ -63,7 +63,7 @@ function grephtml () {
   grep -R --include='*.html' "$@"
 }
 function grepex () {
-  grep -R --exclude='*.pyc' --exclude='*.po' --exclude='*.pdf' --exclude='*.sw*' --exclude='*.orig' --exclude-dir='node_modules' "$@"
+  grep -R --exclude='*.pyc' --exclude='*.po' --exclude='*.pdf' --exclude='*.sw*' --exclude='*.orig' --exclude='*.map' --exclude-dir='node_modules' "$@"
 }
 
 function alltypes () {
