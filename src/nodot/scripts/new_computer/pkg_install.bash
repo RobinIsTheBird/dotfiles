@@ -35,7 +35,6 @@ sudo $pkginstall \
   libssl-dev \
   mailutils \
   mailutils-doc \
-  ndiswrapper-utils-1.9 \
   nfs-common \
   nmap \
   node \
