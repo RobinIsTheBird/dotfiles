@@ -5,34 +5,26 @@ LOCAL_FSTAB=$HOME/scripts/new_computer/at_home/01local.fstab
 
 CANON=$(sudo arp-scan -l | grep -i canon)
 FOUND_CANON=$?
-CANON_IP=$([ $FOUND_CANON -eq 0 ] && echo $CANON | cut -f 1 -d ' ')
+CANON_SED=$([ $FOUND_CANON -eq 0 ] &&
+  echo $CANON | cut -f 1 -d ' ' | sed 's/.*/-e \/^$\/i&\\ canon-pixma')
 
-ADD_HOSTS='/^$/i'
-! grep -q "127\." /etc/hosts || \
-  ADD_HOSTS[${#ADD_HOSTS[@]}]="127.0.1.1 $(hostname) $DISTRO $SYSTEM"
-! grep -q "canon-pixma-5220" /etc/hosts || [ $FOUND_CANON -eq 0 ] && \
-  ADD_HOSTS[${#ADD_HOSTS[@]}]="${CANON_IP} canon-pixma-5220"
-! grep -q "converge" /etc/hosts || \
-  ADD_HOSTS[${#ADD_HOSTS[@]}]="76.124.163.200 converge"
-! grep -q "syn-13" /etc/hosts || \
-  ADD_HOSTS[${#ADD_HOSTS[@]}]="192.168.10.13 syn-13"
-! grep -q "syn-14" /etc/hosts || \
-  ADD_HOSTS[${#ADD_HOSTS[@]}]="192.168.10.14 syn-14"
-! grep -q "esxi" /etc/hosts || \
-  ADD_HOSTS[${#ADD_HOSTS[@]}]="192.168.10.11 esxi"
+sed \
+  -e '/127\.0\.1\.1/d' \
+  -e '/canon-pixma-5220/d' \
+  -e '/convergs/d' \
+  -e '/syn-13/d' \
+  -e '/syn-14/d' \
+  -e '/esxi/d' \
+  -e '/^$/i 127.0.1.1 '"$(hostname) $DISTRO $SYSTEM" \
+  -e '/^$/i 76.124.163.200 converge' \
+  -e '/^$/i 192.168.10.13 syn-13' \
+  -e '/^$/i 192.168.10.14 syn-14' \
+  -e '/^$/i 192.168.10.11 esxi' \
+  "$CANON_SED" \
+    /etc/hosts > /tmp/hosts
 
-MAX=${#ADD_HOSTS[@]}
-if [ $MAX -gt 1 ] ; then
-  let MAX=MAX-1;
-  SED_CMD=
-  for i in ${!ADD_HOSTS[@]}; do
-    SED_CMD=${SED_CMD}${ADD_HOSTS[$i]};
-    [ $i -lt $MAX ] && SED_CMD=${SED_CMD}\\\\\\n;
-  done;
-  echo -e $SED_CMD | sed -f - /etc/hosts > /tmp/hosts;
-  sudo cp -p /etc/hosts /etc/hosts.old;
-  sudo mv /tmp/hosts /etc/hosts;
-fi
+sudo cp -p /etc/hosts /etc/hosts.old;
+sudo mv /tmp/hosts /etc/hosts;
 
 unset MAX
 unset ADD_HOSTS
