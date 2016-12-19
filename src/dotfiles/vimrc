@@ -24,7 +24,7 @@ set wildignore+=**/*.pyc,*.pyc
 set path=$PWD/**
 set suffixesadd+=.js,.java,.coffee,.py
 set noequalalways
-" set noautoindent
+set noautoindent
 
 " vundle vim package manager from
 " https://github.com/VundleVim/Vundle.vim
@@ -63,6 +63,9 @@ Plugin 'Valloric/YouCompleteMe'
 
 "https://github.com/idanarye/vim-merginal
 Plugin 'idanarye/vim-merginal'
+
+"https://github.com/vim-syntastic/syntastic
+Plugin 'vim-syntastic/syntastic'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -111,7 +114,6 @@ nmap <F8> :setlocal syntax=javascript <CR>
 nmap <F7> :setlocal syntax=html <CR>
 nmap <F2> :set tabstop=2 shiftwidth=2 expandtab <CR>
 nmap <F4> :set tabstop=4 shiftwidth=4 expandtab <CR>
-" set tabstop=4 shiftwidth=4 expandtab
 
 hi MatchParen None
 hi MatchParen term=underline,bold cterm=underline,bold gui=underline,bold
